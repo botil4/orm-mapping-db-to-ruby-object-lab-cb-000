@@ -54,4 +54,15 @@ class Student
     sql = "DROP TABLE IF EXISTS students"
     DB[:conn].execute(sql)
   end
+
+  def self.count_all_students_in_grade_9(name)
+    sql = <<-SQL
+      SELECT * FROM students WHERE grade = 9
+    SQL
+
+    students = DB[:conn].execute(sql, name)
+
+    students.map { |row| Student.new_from_db(row)  }
+  end
+
 end
