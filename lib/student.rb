@@ -26,7 +26,7 @@ class Student
 
     students = DB[:conn].execute(sql, name)
 
-    students.map { |row| Student.new_from_db(row)  }
+    students.map { |row| Student.new_from_db(row)  }.first
   end
 
   def save
