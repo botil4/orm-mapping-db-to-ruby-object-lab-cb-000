@@ -84,6 +84,7 @@ class Student
 
     students.map { |row| Student.new_from_db(row)  }
   end
+
   def self.first_student_in_grade_10
     sql = <<-SQL
       SELECT * FROM students WHERE grade = 10 LIMIT 1
@@ -92,6 +93,16 @@ class Student
     students = DB[:conn].execute(sql)
 
     students.map { |row| Student.new_from_db(row)  }.first
+  end
+
+  def self.all_students_in_grade_X(x)
+    sql = <<-SQL
+      SELECT * FROM students WHERE grade = x
+    SQL
+
+    students = DB[:conn].execute(sql, x)
+
+    students.map { |row| Student.new_from_db(row)  }
   end
 
 end
